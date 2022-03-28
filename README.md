@@ -1,8 +1,8 @@
 # discord-extensive-music-bot
 
-> #### Многофункциональный и персональный музыкальный бот.
-> #### Создан для локального круга людей.
-> #### P.S: Написан на коленке и есть моменты с говно и хард кодом.
+> #### Multifunctional and personal music bot
+> #### Created for a local circle of people
+> #### P.S: It is written on the knee and there are moments with shit and hard code.
 
 ## Installation
 ```
