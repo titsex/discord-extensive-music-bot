@@ -1,0 +1,48 @@
+{
+  "name": "discord-extensive-music-bot",
+  "version": "1.0.0",
+  "description": "Multifunctional extensive music bot for discord",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
+    "start": "set NODE_ENV=production && node --no-warnings --enable-source-maps ./build/index.js",
+    "start:dev": "set NODE_ENV=development && node --no-warnings --enable-source-maps ./build/index.js",
+    "dev": "npm-run-all build start:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/titsex/discord-extensive-music-bot"
+  },
+  "author": "titsex",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.1",
+    "tscpaths": "^0.0.9",
+    "typescript": "4.6.2"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.8.0",
+    "@distube/soundcloud": "^1.1.0",
+    "@distube/spotify": "1.2.1",
+    "@distube/yt-dlp": "^1.0.2",
+    "discord.js": "^13.6.0",
+    "distube": "^3.3.3",
+    "dotenv": "^16.0.0",
+    "fastest-levenshtein": "^1.0.12",
+    "ffmpeg-static": "^5.0.0",
+    "libsodium-wrappers": "^0.7.10",
+    "number-to-words-ru": "^2.3.3",
+    "opusscript": "^0.0.8",
+    "pg": "^8.7.3",
+    "tslib": "^2.3.1",
+    "typeorm": "^0.2.45"
+  },
+  "keywords": []
+}

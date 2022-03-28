@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "importHelpers": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "build",
+    "incremental": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@types": ["types"],
+      "@utils": ["utils"],
+      "@consts": ["consts"],
+      "@getters": ["getters"],
+      "@commands": ["commands"],
+      "@index": ["index"],
+      "@class/*": ["classes/*"],
+      "@event/*": ["events/*"],
+      "@model/*": ["database/models/*"],
+      "@module/*": ["modules/*"],
+      "@database": ["database"]
+    }
+  },
+  "include": ["./src/**/*"]
+}
