@@ -1,3 +1,4 @@
+export { playlistPrivacy } from '@module/music/playlistPrivacy'
 export { playlistCreate } from '@module/music/playlistCreate'
 export { playlistDelete } from '@module/music/playlistDelete'
 export { playlistChange } from '@module/music/playlistChange'

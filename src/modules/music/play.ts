@@ -12,9 +12,19 @@ export async function play(context: MContext) {
             embeds: [buildEmbed('Вы не указали аргумент', 'Мне нужно название трека или его источник')],
         })
 
-    const find = await playlistRepository.findOne({ ownerId: context.sender!.id, title: args.join(' ') })
+    const find = await playlistRepository.findOne({ title: args.join(' ') })
 
     if (find) {
+        if (find.channelId !== context.guild!.id && !find.public)
+            return context.channel.send({
+                embeds: [
+                    buildEmbed(
+                        'Приватный плейлист',
+                        'Автор плейлиста запретил проигрывать треки из него, вне канала, в котором он был создан'
+                    ),
+                ],
+            })
+
         const playlist = await distube.createCustomPlaylist(find.songs, {
             member: context.member!,
             parallel: true,

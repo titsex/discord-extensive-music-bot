@@ -24,6 +24,7 @@ import {
     playlistList,
     playlistRename,
     changelogs,
+    playlistPrivacy,
 } from '@module/index'
 import { COMMAND_TYPE, ICommand, Roles } from '@types'
 import { MessageEmbed } from 'discord.js'
@@ -170,6 +171,12 @@ export const commands: ICommand[] = [
         role: Roles.Пользователь,
         type: COMMAND_TYPE.MUSIC,
         func: playlistRename,
+    },
+    {
+        aliases: ['playlist privacy', 'плейлист приватность'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.MUSIC,
+        func: playlistPrivacy,
     },
     {
         aliases: ['playlist', 'плейлист'],

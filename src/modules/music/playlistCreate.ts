@@ -14,6 +14,8 @@ export async function playlistCreate(context: MContext) {
 
     playlist.title = args[0]
     playlist.ownerId = context.sender!.id
+    playlist.channelId = context.guild!.id
+    playlist.public = true
 
     const songs: Set<string> = new Set()
 
