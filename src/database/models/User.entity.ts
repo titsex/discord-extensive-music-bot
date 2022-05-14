@@ -10,6 +10,9 @@ export class UserEntity {
     @Column()
     tag!: string
 
+    @Column({ nullable: true })
+    name?: string
+
     @OneToMany(() => PlaylistEntity, p => p.owner)
     playlists!: PlaylistEntity[]
 

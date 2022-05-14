@@ -1,5 +1,6 @@
 import { Queue, Song } from 'distube'
 import { buildEmbed } from '@utils'
+import { logRepository } from '@database'
 
 export async function playSong(queue: Queue, song: Song) {
     const messages = (await queue.textChannel?.messages.fetch())!.map(item => item)
@@ -29,5 +30,18 @@ export async function playSong(queue: Queue, song: Song) {
         return await queue.textChannel!.messages.edit(sorted[0], { embeds: [embed] })
     }
 
+    const logs = await logRepository.find({ channelId: queue.id })
+
+    if (logs.length === 30) await logRepository.delete(logs[0])
+
+    const log = await logRepository.create()
+
+    if (song.user) log.userId = song.user.id
+
+    log.title = song.name!
+    log.uri = song.url!
+    log.channelId = queue.id
+
+    await logRepository.save(log)
     return await queue.textChannel!.send({ embeds: [embed] })
 }

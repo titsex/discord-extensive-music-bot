@@ -1,5 +1,5 @@
 import { channelRepository, memberRepository, userRepository } from '@database'
-import { ACCOUNT_TYPES, ICommand, MContext, Roles } from '@types'
+import { ACCOUNT_TYPES, COMMAND_TYPE, ICommand, MContext, Roles } from '@types'
 import { buildEmbed } from '@utils'
 import { client } from '@index'
 
@@ -33,7 +33,7 @@ export async function validate(context: MContext, command: ICommand | undefined)
         }
     }
 
-    if (command && context.channelId !== context.chat?.replyChatId && !/bind|activate/i.test(command.aliases[0])) {
+    if (command && context.channelId !== context.chat?.replyChatId && command.type !== COMMAND_TYPE.EVERY) {
         const text = buildEmbed(
             'В этом канале нельзя использовать команды',
             'Команды можно использовать только в привязанном текстовом канале.',
@@ -85,6 +85,7 @@ export async function getChannel(guildId: string) {
     channel.replyChatTitle = ''
     channel.volume = 50
     channel.activate = false
+    channel.logs = []
 
     const context = {
         guild: guild!,

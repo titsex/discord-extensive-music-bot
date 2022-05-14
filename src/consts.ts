@@ -25,13 +25,26 @@ import {
     playlistRename,
     changelogs,
     playlistPrivacy,
+    logs,
+    nickname,
+    name,
+    gamers,
+    lolHistory,
 } from '@module/index'
 import { COMMAND_TYPE, ICommand, Roles } from '@types'
 import { MessageEmbed } from 'discord.js'
+import { LolApi } from 'twisted'
 
 export const errorEmbed = new MessageEmbed()
     .setTitle('Произошла ошибка')
     .setDescription('Не удалось воспроизвести песню')
+
+export const lolApi = new LolApi({
+    rateLimitRetry: true,
+    rateLimitRetryAttempts: 1,
+    concurrency: undefined,
+    key: process.env.RIOT_TOKEN,
+})
 
 export const commands: ICommand[] = [
     {
@@ -79,7 +92,7 @@ export const commands: ICommand[] = [
     {
         aliases: ['bind', 'привязать'],
         role: Roles.Администратор,
-        type: COMMAND_TYPE.MANAGEMENT,
+        type: COMMAND_TYPE.EVERY,
         func: bind,
     },
     {
@@ -121,13 +134,13 @@ export const commands: ICommand[] = [
     {
         aliases: ['activate', 'активация'],
         role: Roles.Разработчик,
-        type: COMMAND_TYPE.MANAGEMENT,
+        type: COMMAND_TYPE.EVERY,
         func: activate,
     },
     {
         aliases: ['deactivate', 'деактивация'],
         role: Roles.Разработчик,
-        type: COMMAND_TYPE.MANAGEMENT,
+        type: COMMAND_TYPE.EVERY,
         func: deactivate,
     },
     {
@@ -189,5 +202,35 @@ export const commands: ICommand[] = [
         role: Roles.Пользователь,
         type: COMMAND_TYPE.MANAGEMENT,
         func: changelogs,
+    },
+    {
+        aliases: ['logs', 'логи'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.MUSIC,
+        func: logs,
+    },
+    {
+        aliases: ['nick', 'ник', 'nickname'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.EVERY,
+        func: nickname,
+    },
+    {
+        aliases: ['name', 'имя'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.EVERY,
+        func: name,
+    },
+    {
+        aliases: ['gamers', 'игроки'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.EVERY,
+        func: gamers,
+    },
+    {
+        aliases: ['lolHistory', 'лолИстория', 'lol history', 'лол история', 'lHistory', 'лИстория'],
+        role: Roles.Пользователь,
+        type: COMMAND_TYPE.EVERY,
+        func: lolHistory,
     },
 ]

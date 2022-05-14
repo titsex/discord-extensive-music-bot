@@ -1,6 +1,6 @@
 import { EmbedField, MessageEmbed } from 'discord.js'
 import { distance } from 'fastest-levenshtein'
-import { ICommand, MContext } from '@types'
+import { IChampion, ICommand, MContext } from '@types'
 import { commands } from '@consts'
 
 export function getCommand(context: MContext) {
@@ -86,4 +86,119 @@ export function buildEmbed(title: string, description: string, fields?: EmbedFie
     }
 
     return embed
+}
+
+export function generateEmbedLeagueMath(
+    myTOP: IChampion,
+    enemyTOP: IChampion,
+    myJungle: IChampion,
+    enemyJungle: IChampion,
+    myMiddle: IChampion,
+    enemyMiddle: IChampion,
+    myADK: IChampion,
+    enemyADK: IChampion,
+    mySupport: IChampion,
+    enemySupport: IChampion
+) {
+    return [
+        {
+            name: `${myTOP.summoner} - ${myTOP!.name} (${myTOP.position})`,
+            value: `💀 ${myTOP!.kills} ☠ ${myTOP!.deaths} ⚔ ${myTOP!.assists}\n💰 ${myTOP.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: true,
+        },
+        {
+            name: `${enemyTOP.summoner} - ${enemyTOP!.name} (${enemyTOP.position})`,
+            value: `💀 ${enemyTOP!.kills} ☠ ${enemyTOP!.deaths} ⚔ ${enemyTOP!.assists}\n💰 ${enemyTOP.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: false,
+        },
+        {
+            name: `${myJungle.summoner} - ${myJungle!.name} (${myJungle.position})`,
+            value: `💀 ${myJungle!.kills} ☠ ${myJungle!.deaths} ⚔ ${myJungle!.assists}\n💰 ${myJungle.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: true,
+        },
+        {
+            name: `${enemyJungle.summoner} - ${enemyJungle!.name} (${enemyJungle.position})`,
+            value: `💀 ${enemyJungle!.kills} ☠ ${enemyJungle!.deaths} ⚔ ${enemyJungle!.assists}\n💰 ${
+                enemyJungle.gold
+            }`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: false,
+        },
+        {
+            name: `${myMiddle.summoner} - ${myMiddle!.name} (${myMiddle.position})`,
+            value: `💀 ${myMiddle!.kills} ☠ ${myMiddle!.deaths} ⚔ ${myMiddle!.assists}\n💰 ${myMiddle.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: true,
+        },
+        {
+            name: `${enemyMiddle.summoner} - ${enemyMiddle!.name} (${enemyMiddle.position})`,
+            value: `💀 ${enemyMiddle!.kills} ☠ ${enemyMiddle!.deaths} ${enemyMiddle!.assists}\n💰 ${enemyMiddle.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: false,
+        },
+        {
+            name: `${myADK.summoner} - ${myADK!.name} (${myADK.position})`,
+            value: `💀 ${myADK!.kills} ☠ ${myADK!.deaths} ⚔ ${myADK!.assists}\n💰 ${myADK.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: true,
+        },
+        {
+            name: `${enemyADK.summoner} - ${enemyADK!.name} (${enemyADK.position})`,
+            value: `💀 ${enemyADK!.kills} ☠ ${enemyADK!.deaths} ⚔ ${enemyADK!.assists}\n💰 ${enemyADK.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: false,
+        },
+        {
+            name: `${mySupport.summoner} - ${mySupport!.name} (${mySupport.position})`,
+            value: `💀 ${mySupport!.kills} ☠ ${mySupport!.deaths} ⚔ ${mySupport!.assists}\n💰 ${mySupport.gold}`,
+            inline: true,
+        },
+        {
+            name: '\u200b',
+            value: '\u200b',
+            inline: true,
+        },
+        {
+            name: `${enemySupport.summoner} - ${enemySupport!.name} (${mySupport.position})`,
+            value: `💀 ${enemySupport!.kills} ☠ ${enemySupport!.deaths} ⚔ ${enemySupport!.assists}\n💰 ${
+                enemySupport.gold
+            }`,
+            inline: true,
+        },
+    ]
 }
