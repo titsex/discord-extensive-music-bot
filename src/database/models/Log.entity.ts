@@ -11,7 +11,7 @@ export class LogEntity {
     @JoinColumn({ name: 'channelId' })
     channel!: ChannelEntity
 
-    @Column()
+    @Column('bigint', { nullable: true })
     channelId!: string
 
     @Column()
@@ -24,6 +24,6 @@ export class LogEntity {
     @JoinColumn({ name: 'userId' })
     user?: UserEntity
 
-    @Column({ nullable: true })
+    @Column('bigint', { nullable: true })
     userId?: string
 }

@@ -1,4 +1,3 @@
-import { memberRepository, userRepository } from '@database'
 import { MContext, Roles } from '@types'
 import { buildEmbed } from '@utils'
 import { EmbedField } from 'discord.js'
@@ -10,21 +9,19 @@ export async function staff(context: MContext) {
     const owner = []
     const admin = []
 
-    const members = await memberRepository.find({ channelId: context.guild!.id })
+    for (const member of context.chat!.members) {
+        if (member.role === Roles.Разработчик)
+            developer.push({ name: member.user?.tag, value: 'разработчик', inline: true })
 
-    for (const member of members) {
-        const { tag } = (await userRepository.findOne(member.userId))!
-
-        if (member.role === Roles.Разработчик) developer.push({ name: tag, value: 'разработчик', inline: true })
-
-        if (member.role === Roles.Бот) bot.push({ name: tag, value: 'бот', inline: true })
+        if (member.role === Roles.Бот) bot.push({ name: member.user?.tag, value: 'бот', inline: true })
 
         if (member.role === Roles['Модератор бота'])
-            botModeration.push({ name: tag, value: 'модератор бота', inline: true })
+            botModeration.push({ name: member.user?.tag, value: 'модератор бота', inline: true })
 
-        if (member.role === Roles.Создатель) owner.push({ name: tag, value: 'создатель', inline: true })
+        if (member.role === Roles.Создатель) owner.push({ name: member.user?.tag, value: 'создатель', inline: true })
 
-        if (member.role === Roles.Администратор) admin.push({ name: tag, value: 'администратор', inline: true })
+        if (member.role === Roles.Администратор)
+            admin.push({ name: member.user?.tag, value: 'администратор', inline: true })
     }
 
     const fields = [] as EmbedField[]

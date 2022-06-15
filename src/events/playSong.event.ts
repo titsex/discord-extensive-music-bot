@@ -30,9 +30,9 @@ export async function playSong(queue: Queue, song: Song) {
         return await queue.textChannel!.messages.edit(sorted[0], { embeds: [embed] })
     }
 
-    const logs = await logRepository.find({ channelId: queue.id })
+    const logs = await logRepository.findBy({ channelId: queue.id || queue.clientMember.guild.id })
 
-    if (logs.length === 30) await logRepository.delete(logs[0])
+    if (logs.length === 30) await logRepository.delete(logs[0].id)
 
     const log = await logRepository.create()
 
@@ -40,7 +40,7 @@ export async function playSong(queue: Queue, song: Song) {
 
     log.title = song.name!
     log.uri = song.url!
-    log.channelId = queue.id
+    log.channelId = queue.id || queue.clientMember.guild.id
 
     await logRepository.save(log)
     return await queue.textChannel!.send({ embeds: [embed] })

@@ -17,34 +17,16 @@ import {
     deactivate,
     channels,
     prefix,
-    playlistCreate,
-    playlistDelete,
-    playlist,
-    playlistChange,
-    playlistList,
-    playlistRename,
     changelogs,
-    playlistPrivacy,
     logs,
-    nickname,
-    name,
-    gamers,
-    lolHistory,
+    jump,
 } from '@module/index'
 import { COMMAND_TYPE, ICommand, Roles } from '@types'
 import { MessageEmbed } from 'discord.js'
-import { LolApi } from 'twisted'
 
 export const errorEmbed = new MessageEmbed()
     .setTitle('Произошла ошибка')
     .setDescription('Не удалось воспроизвести песню')
-
-export const lolApi = new LolApi({
-    rateLimitRetry: true,
-    rateLimitRetryAttempts: 1,
-    concurrency: undefined,
-    key: process.env.RIOT_TOKEN,
-})
 
 export const commands: ICommand[] = [
     {
@@ -156,48 +138,6 @@ export const commands: ICommand[] = [
         func: prefix,
     },
     {
-        aliases: ['playlist create', 'плейлист создать'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistCreate,
-    },
-    {
-        aliases: ['playlist delete', 'плейлист удалить'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistDelete,
-    },
-    {
-        aliases: ['playlist change', 'плейлист изменить'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistChange,
-    },
-    {
-        aliases: ['playlist list', 'плейлист список'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistList,
-    },
-    {
-        aliases: ['playlist rename', 'плейлист переименовать'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistRename,
-    },
-    {
-        aliases: ['playlist privacy', 'плейлист приватность'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlistPrivacy,
-    },
-    {
-        aliases: ['playlist', 'плейлист'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.MUSIC,
-        func: playlist,
-    },
-    {
         aliases: ['changelogs', 'списки изменений'],
         role: Roles.Пользователь,
         type: COMMAND_TYPE.MANAGEMENT,
@@ -210,27 +150,9 @@ export const commands: ICommand[] = [
         func: logs,
     },
     {
-        aliases: ['nick', 'ник', 'nickname'],
+        aliases: ['jump', 'прыгнуть'],
         role: Roles.Пользователь,
-        type: COMMAND_TYPE.EVERY,
-        func: nickname,
-    },
-    {
-        aliases: ['name', 'имя'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.EVERY,
-        func: name,
-    },
-    {
-        aliases: ['gamers', 'игроки'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.EVERY,
-        func: gamers,
-    },
-    {
-        aliases: ['lolHistory', 'лолИстория', 'lol history', 'лол история', 'lHistory', 'лИстория'],
-        role: Roles.Пользователь,
-        type: COMMAND_TYPE.EVERY,
-        func: lolHistory,
+        type: COMMAND_TYPE.MUSIC,
+        func: jump,
     },
 ]

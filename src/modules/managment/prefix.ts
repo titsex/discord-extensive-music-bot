@@ -1,6 +1,5 @@
 import { MContext } from '@types'
 import { buildEmbed, getArgs } from '@utils'
-import { channelRepository } from '@database'
 
 export async function prefix(context: MContext) {
     const args = getArgs(context)
@@ -15,13 +14,8 @@ export async function prefix(context: MContext) {
             ],
         })
 
-    if (!args.length) {
-        context.chat!.prefix = ''
-    } else {
-        context.chat!.prefix = args.join('')
-    }
-
-    await channelRepository.save(context.chat!)
+    if (!args.length) context.chat!.prefix = ''
+    else context.chat!.prefix = args.join('')
 
     return await context.channel.send({
         embeds: [

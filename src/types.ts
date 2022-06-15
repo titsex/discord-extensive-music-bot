@@ -1,15 +1,8 @@
 import { ChannelEntity } from '@model/Channel.entity'
 import { UserEntity } from '@model/User.entity'
-import { GuildMember, Message } from 'discord.js'
-import { MatchV5DTOs } from 'twisted/dist/models-dto'
-import Position = MatchV5DTOs.Position
+import { Message } from 'discord.js'
 
 export interface MContext extends Message {
-    chat?: ChannelEntity
-    sender?: UserEntity & { role?: Roles }
-}
-
-export interface MGuild extends GuildMember {
     chat?: ChannelEntity
     sender?: UserEntity & { role?: Roles }
 }
@@ -63,16 +56,6 @@ export enum COMMAND_TYPE {
     MUSIC = 'MUSIC',
     MANAGEMENT = 'MANAGEMENT',
     EVERY = 'EVERY',
-}
-
-export interface IChampion {
-    summoner: string
-    name: string
-    position: Position
-    kills: number
-    deaths: number
-    assists: number
-    gold: number
 }
 
 export interface ICommand {

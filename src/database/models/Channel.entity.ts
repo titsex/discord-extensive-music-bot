@@ -4,7 +4,7 @@ import { LogEntity } from '@model/Log.entity'
 
 @Entity()
 export class ChannelEntity {
-    @PrimaryColumn()
+    @PrimaryColumn('bigint')
     id!: string
 
     @Column()

@@ -1,20 +1,13 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn } from 'typeorm'
 import { ACCOUNT_TYPES } from '@types'
-import { PlaylistEntity } from '@model/Playlist.entity'
 
 @Entity()
 export class UserEntity {
-    @PrimaryColumn()
+    @PrimaryColumn('bigint')
     id!: string
 
     @Column()
     tag!: string
-
-    @Column({ nullable: true })
-    name?: string
-
-    @OneToMany(() => PlaylistEntity, p => p.owner)
-    playlists!: PlaylistEntity[]
 
     @Column({ enum: ACCOUNT_TYPES })
     accountType!: ACCOUNT_TYPES

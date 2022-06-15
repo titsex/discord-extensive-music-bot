@@ -15,16 +15,13 @@ export class MemberEntity {
     @JoinColumn({ name: 'userId' })
     user!: UserEntity
 
-    @Column()
+    @Column('bigint')
     userId!: string
-
-    @Column({ nullable: true })
-    nickname?: string
 
     @ManyToOne(() => ChannelEntity, c => c.members)
     @JoinColumn({ name: 'channelId' })
     channel!: ChannelEntity
 
-    @Column()
+    @Column('bigint')
     channelId!: string
 }

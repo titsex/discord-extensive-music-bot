@@ -1,6 +1,6 @@
 import { MContext, Roles } from '@types'
 import { buildEmbed, getArgs, getIds } from '@utils'
-import { memberRepository, userRepository } from '@database'
+import { userRepository } from '@database'
 import { EmbedField } from 'discord.js'
 
 export async function decrease(context: MContext) {
@@ -25,8 +25,8 @@ export async function decrease(context: MContext) {
     const fields = [] as EmbedField[]
 
     for (const id of ids) {
-        const member = await memberRepository.findOne({ channelId: context.guild!.id, userId: id as string })
-        const user = await userRepository.findOne(member!.userId)
+        const member = context.chat?.members.find(x => x.userId === id)
+        const user = await userRepository.findOneBy({ id: member!.userId })
 
         if (!member) {
             fields.push({
@@ -65,8 +65,6 @@ export async function decrease(context: MContext) {
             value: 'понижен',
             inline: true,
         })
-
-        await memberRepository.save(member)
     }
 
     return context.channel.send({ embeds: [buildEmbed('', '', fields)] })

@@ -15,7 +15,7 @@ export async function deactivate(context: MContext) {
             ],
         })
 
-    const find = await channelRepository.findOne({ title: args.join(' ') })
+    const find = await channelRepository.findOneBy({ title: args.join(' ') })
     if (!find) return context.channel.send({ embeds: [buildEmbed('Канал не был найден', '')] })
 
     find.activate = false

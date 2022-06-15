@@ -2,7 +2,7 @@ import { config } from 'dotenv'
 config()
 
 import { COMMAND_TYPE, MContext, Roles } from '@types'
-import { extendContext, validate } from '@getters'
+import { extendContext, validate, saveContext, setCyberCutletRole } from '@getters'
 import SoundCloudPlugin from '@distube/soundcloud'
 import { playSong } from '@event/playSong.event'
 import { buildEmbed, getCommand } from '@utils'
@@ -17,7 +17,7 @@ import { DisTube } from 'distube'
 import { DB } from '@database'
 import { finish } from '@event/finish.event'
 
-new DB(process.env.PG_URL!)
+new DB()
 
 export const client = new Client({
     intents: [
@@ -35,7 +35,7 @@ export const distube = new DisTube(client, {
     youtubeDL: false,
     leaveOnStop: true,
     emptyCooldown: 1,
-    plugins: [new YtDlpPlugin(), new SpotifyPlugin(), new SoundCloudPlugin(), new YtDlpPlugin()],
+    plugins: [new YtDlpPlugin(), new SpotifyPlugin(), new SoundCloudPlugin()],
 })
 
 distube.on('addSong', async (queue, song) => await addSong(queue, song))
@@ -51,6 +51,7 @@ client.on('message', async (context: MContext) => {
     if (context.author.bot) return
 
     await extendContext(context)
+    await setCyberCutletRole(context)
     const command = getCommand(context)
 
     if (!(await validate(context, command))) return
@@ -83,8 +84,10 @@ client.on('message', async (context: MContext) => {
         try {
             await command.func(context)
         } catch (error) {
-            Logger.error(error)
+            Logger.error('Ошибка при выполнении команды', command.aliases, error)
             context.channel.send({ embeds: [buildEmbed('Произошла ошибка', 'Не удалось выполнить команду')] })
+        } finally {
+            await saveContext(context)
         }
     }
 })

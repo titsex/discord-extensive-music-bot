@@ -2,7 +2,6 @@ import { MContext } from '@types'
 import { TextChannel } from 'discord.js'
 import { distube } from '@index'
 import { getArgs } from '@utils'
-import { channelRepository } from '@database'
 
 export async function volume(context: MContext) {
     const channel = context.client.channels.cache.get(context.channelId!)! as TextChannel
@@ -19,8 +18,6 @@ export async function volume(context: MContext) {
 
     if (/сбросить|reset/i.test(args[0])) {
         context.chat!.volume = 50
-        await channelRepository.save(context.chat!)
-
         return context.channel.send('Вы успешно сбросили настройки громкости до стандартных 50%')
     }
 
@@ -32,8 +29,6 @@ export async function volume(context: MContext) {
 
     if (/всегда|always/i.test(args[1])) {
         context.chat!.volume = volume
-        await channelRepository.save(context.chat!)
-
         return context.channel.send(`Вы успешно изменили стандартную громкость треков на ${volume}%`)
     }
 
